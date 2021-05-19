@@ -5,21 +5,17 @@ using Todo.Domain.Shared.Commands;
 
 namespace Todo.Domain.Commands
 {
-    public class CreateTodoCommand : Notifiable<Notification>, ICommand
+    public class UpdateTodoCommand : Notifiable<Notification>, ICommand
     {
-        public CreateTodoCommand(string title, string user, DateTime date)
+        public UpdateTodoCommand(Guid id, string title, string user)
         {
+            Id = id;
             Title = title;
             User = user;
-            Date = date;
-
-            AddNotifications(new CreateTodoCommandContract(this));
         }
 
+        public Guid Id { get; set; }
         public string Title { get; set; }
-
         public string User { get; set; }
-
-        public DateTime Date { get; set; }
     }
 }
