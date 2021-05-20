@@ -17,5 +17,10 @@ namespace Todo.Domain.Commands
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string User { get; set; }
+
+        public void Validate()
+        {
+            AddNotifications(new UpdateTodoCommandContract(this));
+        }
     }
 }

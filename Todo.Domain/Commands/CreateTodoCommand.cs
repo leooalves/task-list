@@ -12,8 +12,6 @@ namespace Todo.Domain.Commands
             Title = title;
             User = user;
             Date = date;
-
-            AddNotifications(new CreateTodoCommandContract(this));
         }
 
         public string Title { get; set; }
@@ -21,5 +19,10 @@ namespace Todo.Domain.Commands
         public string User { get; set; }
 
         public DateTime Date { get; set; }
+
+        public void Validate()
+        {
+            AddNotifications(new CreateTodoCommandContract(this));
+        }
     }
 }
