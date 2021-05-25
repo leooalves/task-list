@@ -45,7 +45,7 @@ namespace Todo.Domain.Handlers
                 return new GenericCommandResult(false, "Ops, sua tarefa está errada", command.Notifications);
 
             //gera o TodoItem
-            var todoItem = _repository.GetById(command.Id);
+            var todoItem = _repository.GetById(command.Id, command.User);
 
             todoItem.UpdateTitle(command.Title);
 
@@ -64,7 +64,7 @@ namespace Todo.Domain.Handlers
 
 
             //Busca o TodoItem
-            var todoItem = _repository.GetById(command.Id);
+            var todoItem = _repository.GetById(command.Id, command.User);
 
             //altera o estado
             todoItem.MarkAsDone();
@@ -84,7 +84,7 @@ namespace Todo.Domain.Handlers
 
 
             //Busca o TodoItem
-            var todoItem = _repository.GetById(command.Id);
+            var todoItem = _repository.GetById(command.Id, command.User);
 
             //altera o estado
             todoItem.MarkAsUndone();
