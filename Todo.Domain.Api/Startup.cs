@@ -32,26 +32,26 @@ namespace Todo.Domain.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Todo.Domain.Api", Version = "v1" });
             });
 
-            // services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
-            services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+            services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+            //services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
 
             services.AddTransient<ITodoRepository, TodoRepository>();
             services.AddTransient<TodoHandler, TodoHandler>();
 
             services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.Authority = "https://securetoken.google.com/todo-app-5c4af";
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidIssuer = "https://securetoken.google.com/todo-app-5c4af",
-                        ValidateAudience = true,
-                        ValidAudience = "todo-app-5c4af",
-                        ValidateLifetime = true
-                    };
-                });
+                   .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                   .AddJwtBearer(options =>
+                   {
+                       options.Authority = "https://securetoken.google.com/todo-app-5c4af";
+                       options.TokenValidationParameters = new TokenValidationParameters
+                       {
+                           ValidateIssuer = true,
+                           ValidIssuer = "https://securetoken.google.com/todo-app-5c4af",
+                           ValidateAudience = true,
+                           ValidAudience = "todo-app-5c4af",
+                           ValidateLifetime = true
+                       };
+                   });
 
         }
 
@@ -72,8 +72,8 @@ namespace Todo.Domain.Api
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
